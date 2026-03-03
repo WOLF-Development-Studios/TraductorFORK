@@ -37,6 +37,8 @@ Este documento sirve como referencia para backend, cliente local y capa de segur
 ---
 
 # 2. Entidades
+![Mapa UML](../../diagrams/dominio/WS-Diagrama-UML-Traductor.png)
+
 
 ---
 

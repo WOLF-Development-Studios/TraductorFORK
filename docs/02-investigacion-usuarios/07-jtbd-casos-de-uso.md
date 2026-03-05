@@ -1,109 +1,83 @@
-<img width="8192" height="1266" alt="User Authentication and-2026-03-04-233815" src="https://github.com/user-attachments/assets/09c12594-f95d-4336-9653-9eb68f147710" />
-# Diagrama de Casos de Uso — Sistema Traductor (IA Local)
+[Diagrama de caso de uso.pdf](https://github.com/user-attachments/files/25754254/Diagrama.de.caso.de.uso.pdf)
+# Diagrama de Casos de Uso — Sistema Traductor
 
+## Descripción general
 
-## Objetivo
-Este documento describe el **diagrama de casos de uso del sistema Traductor**, una aplicación de **traducción asistida por inteligencia artificial con arquitectura local-first**.
+El siguiente diagrama de casos de uso representa las **principales interacciones entre los usuarios y el sistema Traductor**, una aplicación de traducción asistida por inteligencia artificial que opera bajo un enfoque **local-first**, donde los documentos y datos sensibles se procesan y almacenan localmente en el dispositivo del usuario.
 
-El propósito del diagrama es mostrar:
+El objetivo del diagrama es mostrar:
 
-- Los **actores del sistema**
-- Las **interacciones principales con el sistema**
-- Las **funcionalidades principales agrupadas por dominio**
-- La relación entre **usuarios y operaciones del sistema**
+- Los **actores que interactúan con el sistema**
+- Las **funcionalidades principales del sistema**
+- Cómo los usuarios acceden a las distintas operaciones del sistema
 
-Este diagrama sirve como referencia para:
-
-- diseño de funcionalidades
-- definición de permisos
-- documentación de arquitectura
-- alineación entre frontend, backend local y modelo de dominio
-
----
-
-# Contexto del Sistema
-
-**Traductor** es una aplicación diseñada para **traducir documentos utilizando modelos de inteligencia artificial**, manteniendo **todo el contenido sensible en el dispositivo del usuario**.
-
-El sistema sigue un enfoque **local-first**, lo que implica:
-
-- Los documentos se almacenan **localmente**
-- El texto fuente y traducido **no se envía a servidores**
-- Los índices vectoriales y embeddings se generan **localmente**
-- El usuario mantiene control total sobre sus datos
-
-Actualmente el sistema **no utiliza infraestructura en la nube**.
+El diagrama se encuentra representado en el documento adjunto:  
+:contentReference[oaicite:0]{index=0}
 
 ---
 
 # Límite del Sistema
 
-En el diagrama aparece un contenedor llamado:
+El rectángulo central del diagrama representa el sistema llamado:
 
-**Sistema Traductor (IA Local)**
+**TRADUCTOR**
 
-Este representa el **límite del sistema**, dentro del cual se encuentran todos los **casos de uso** que el software ofrece.
+Dentro de este límite se encuentran todos los **casos de uso**, que representan las funcionalidades disponibles en la aplicación.
 
-Los **actores están fuera de este límite**, ya que representan entidades externas que interactúan con el sistema.
+Los **actores se encuentran fuera del sistema**, ya que representan entidades externas que interactúan con el software.
 
 ---
 
 # Actores del Sistema
 
-El diagrama incluye los siguientes actores.
+El diagrama incluye tres actores principales.
 
-## Usuario Invitado
-Usuario que aún **no ha iniciado sesión**.
+## Usuario sin autenticar
 
-Puede realizar acciones limitadas como iniciar sesión.
+Este actor representa a un usuario que aún **no ha iniciado sesión en el sistema**.
 
----
+Su interacción principal es:
 
-## Usuario Autenticado
-Usuario que ya ha iniciado sesión en el sistema.
+- **Iniciar sesión**
 
-A partir de este actor se derivan otros roles especializados.
+Una vez autenticado, el usuario obtiene acceso a las funcionalidades del sistema.
 
 ---
 
-## Traductor / Editor
-Actor principal del sistema.
+## Usuario autenticado
 
-Responsable de:
+Este actor representa a cualquier usuario que **ya inició sesión** y tiene acceso a funcionalidades del sistema relacionadas con la gestión de documentos y proyectos.
 
-- traducir documentos
-- administrar proyectos
-- administrar documentos
-- seleccionar modelos de IA
-- gestionar contexto del documento
+Puede interactuar con:
+
+- importación de archivos
+- edición de documentos
+- exportación de documentos traducidos
+- gestión de proyectos
+- visualización de traducciones
+- administración de glosarios
+
+---
+
+## Traductor
+
+El actor **Traductor** representa al usuario especializado que utiliza el sistema para realizar traducciones asistidas por IA.
+
+Sus responsabilidades principales incluyen:
+
+- elegir idioma de traducción
+- visualizar traducciones
+- traducir palabras con contexto
+- crear glosarios
 - administrar glosarios
 
-Este actor representa al **usuario que utiliza la aplicación para realizar traducciones**.
+Este actor representa el **usuario principal del sistema**, ya que utiliza las capacidades de traducción de la aplicación.
 
 ---
 
-## Administrador Local
-Usuario con permisos adicionales para gestionar configuraciones del sistema.
+# Casos de Uso Principales
 
-Responsabilidades principales:
-
-- administrar modelos de IA
-- gestionar glosarios
-- administrar configuración del sistema
-- gestionar contexto documental
-
----
-
-## Viewer
-Usuario con acceso de **solo lectura**.
-
-Puede visualizar resultados pero **no modificar documentos ni iniciar traducciones**.
-
----
-
-# Agrupación de Funcionalidades
-
-Los casos de uso se agrupan en distintos dominios funcionales.
+El sistema incluye varias funcionalidades organizadas en diferentes dominios.
 
 ---
 
@@ -114,147 +88,81 @@ Permite controlar el acceso al sistema.
 Casos de uso:
 
 - Iniciar sesión
-- Validar sesión
 - Cerrar sesión
 
-Estos casos de uso permiten controlar **la autenticación del usuario** antes de acceder al resto del sistema.
+Estos casos de uso permiten autenticar al usuario antes de acceder a las funcionalidades principales del sistema.
 
 ---
 
-# Proyectos y Documentos
+# Administración de Documentos
 
-Permite organizar el trabajo de traducción.
+Este conjunto de casos de uso permite gestionar documentos dentro del sistema.
+
+Incluye:
+
+- Importar archivo
+- Editar documento
+- Exportar documento con traducción
+- Eliminar proyecto
+
+Estas acciones permiten trabajar con documentos que posteriormente serán procesados por el sistema de traducción.
+
+---
+
+# Traducciones
+
+Este grupo de funcionalidades corresponde al **núcleo del sistema**.
 
 Casos de uso:
 
-- Administrar proyectos
-- Administrar documentos
+- Elegir idioma
+- Ver traducción
+- Traducir palabra con su definición contextual
 
-Dentro de estas funcionalidades se incluyen acciones como:
-
-- crear proyectos
-- editar proyectos
-- crear documentos
-- editar documentos
-- consultar documentos
-
-Los documentos representan el **contenido a traducir**.
+Estas operaciones permiten que el usuario interactúe con los modelos de IA para obtener traducciones.
 
 ---
 
-# Traducción Asistida por IA
+# Gestión de Glosarios
 
-Este es el núcleo del sistema.
-
-Casos de uso principales:
-
-- Iniciar traducción
-- Seleccionar idiomas
-- Seleccionar modelo de IA
-- Exportar traducción
-
-### Flujo general
-
-1. El usuario selecciona el documento.
-2. Define idioma origen y destino.
-3. Selecciona el modelo de IA.
-4. Inicia el proceso de traducción.
-5. El sistema procesa los segmentos del documento.
-6. El usuario puede exportar el resultado final.
-
----
-
-# Configuración Local
-
-Estas funcionalidades permiten ajustar el comportamiento del sistema.
+Los glosarios permiten mantener **consistencia terminológica** en las traducciones.
 
 Casos de uso:
 
+- Crear glosario
 - Administrar glosario
-- Administrar modelos IA
-- Gestionar contexto documental
+
+Esto permite que el sistema utilice terminología específica definida por el usuario.
 
 ---
 
-## Administrar Glosario
+# Flujo de Uso del Sistema
 
-Permite crear y modificar **diccionarios personalizados** para mejorar la calidad de traducción.
+Un flujo típico de interacción con el sistema sería:
 
-Incluye acciones como:
-
-- agregar términos
-- editar términos
-- eliminar términos
-
----
-
-## Administrar Modelos IA
-
-Permite seleccionar y configurar **modelos de inteligencia artificial** utilizados para traducción.
-
-Esto puede incluir:
-
-- cambiar modelo activo
-- ajustar parámetros
-- consultar modelos disponibles
-
----
-
-## Gestionar Contexto Documental
-
-Permite generar y mantener el **índice contextual del documento**.
-
-Este índice se utiliza para:
-
-- mejorar coherencia de traducción
-- recuperar contexto durante el proceso de traducción
-- implementar técnicas de **RAG (Retrieval Augmented Generation)**
-
-Este proceso se realiza **completamente local**.
-
----
-
-# Relaciones entre Casos de Uso
-
-El diagrama también muestra dependencias entre casos de uso.
-
-Ejemplos:
-
-**Iniciar traducción** depende de:
-
-- seleccionar idioma
-- seleccionar modelo de IA
-
-Esto significa que estas acciones deben ocurrir **antes de ejecutar la traducción**.
-
----
-
-# Flujo de Interacción Típico
-
-Un flujo típico de uso del sistema es el siguiente:
-
-1. El usuario inicia sesión.
-2. Selecciona o crea un proyecto.
-3. Importa un documento.
-4. Selecciona idioma origen y destino.
-5. Selecciona el modelo de IA.
-6. Inicia la traducción.
-7. Revisa el resultado.
-8. Exporta el documento traducido.
+1. El usuario abre la aplicación.
+2. El usuario inicia sesión.
+3. Importa un archivo para traducir.
+4. Edita o prepara el documento.
+5. Selecciona el idioma de traducción.
+6. El sistema genera traducciones utilizando IA.
+7. El usuario revisa la traducción.
+8. Puede exportar el documento traducido.
+9. Finalmente cierra sesión.
 
 ---
 
 # Importancia del Diagrama
 
-Este diagrama permite entender rápidamente:
+El diagrama de casos de uso permite visualizar de manera clara:
 
-- qué usuarios interactúan con el sistema
-- qué operaciones pueden realizar
-- cómo se organizan las funcionalidades principales
+- las funcionalidades principales del sistema
+- qué usuarios pueden acceder a cada operación
+- la estructura funcional del sistema Traductor
 
 Además sirve como base para:
 
-- diseño de UI
-- definición de permisos (RBAC)
-- diseño de APIs locales
-- planificación de desarrollo
+- diseño de interfaz
+- implementación de permisos
+- diseño de arquitectura del sistema
+- planificación del desarrollo del software

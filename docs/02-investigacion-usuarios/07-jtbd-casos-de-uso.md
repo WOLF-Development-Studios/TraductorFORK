@@ -1,4 +1,6 @@
-[Diagrama de caso de uso.pdf](https://github.com/user-attachments/files/25754254/Diagrama.de.caso.de.uso.pdf)
+
+<img width="1360" height="1760" alt="Diagrama de caso de uso" src="https://github.com/user-attachments/assets/2c6af54d-1154-4887-bcd3-40d4af165fae" />
+
 # Diagrama de Casos de Uso — Sistema Traductor
 
 ## Descripción general
